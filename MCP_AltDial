@@ -1,0 +1,81 @@
+// MCP Altitude
+
+PROP
+{
+  name = MCP_AltitudeDial
+  
+// switcher status
+  
+MODULE
+{
+    name = JSINumericInput
+    perPodPersistenceName = MCP_AltDialInput
+    defaultValue = 0
+    stepSize = 500
+    minValue = 0
+    maxValue = 999500
+    reverse = false
+
+    //loopInput = true
+
+    USERINPUTSET
+    {
+		switchTransform = DialColliderPlus
+		incrementCurve
+		{
+			key = 0 500
+			key = 1 5000
+			key = 3 10000
+			key = 5 20000
+		}
+		
+		switchSound = ASET/ASET_Props/Sounds/NID02
+		switchSoundVolume = 0.5
+    }
+	USERINPUTSET
+    {
+		switchTransform = DialColliderMinus
+		incrementCurve
+		{
+			key = 0 -500
+			key = 1 -5000
+			key = 3 -10000
+			key = 3 -20000
+		}
+		switchSound = ASET/ASET_Props/Sounds/NID02
+		switchSoundVolume = 0.5
+    }
+}
+ 
+ 
+// knob rotation animation
+	
+	MODULE
+	{
+		name = JSIVariableAnimator
+		refreshRate = 2
+		
+		VARIABLESET	
+		{		
+			controlledTransform  = KnobGrp
+			localRotationStart = 0,0,0 
+			localRotationEnd  = 0,0,-100000000
+			variableName = PERSISTENT_MCP_AltDialInput
+			scale = 0,25000000
+			longPath = yes
+			//maxRateChange = 1.0
+		}
+		VARIABLESET	
+		{	
+			animationName = NID_nb_PictSwitchAnim
+			variableName = 0 // 0 - clear top, 1 - Arrow, 2 - Course icon, 3 - Dash mark, 4 - Heading icon, 5 - Point mark, 6 - wide arrow
+			scale = 0,7
+		}
+
+	}
+	
+	
+// CUSTOMS setup
+
+// ....
+
